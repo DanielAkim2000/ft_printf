@@ -6,7 +6,7 @@
 /*   By: demane <emanedanielakim@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 11:12:56 by demane            #+#    #+#             */
-/*   Updated: 2025/11/14 12:28:15 by demane           ###   ########.fr       */
+/*   Updated: 2025/11/16 17:35:39 by demane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ typedef struct s_format
 	int		length;
 }	t_format;
 
-int	printf(const char *str, ...);
+int	ft_printf(const char *str, ...);
 
 #endif
