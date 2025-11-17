@@ -6,36 +6,38 @@
 /*   By: demane <emanedanielakim@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 13:57:41 by demane            #+#    #+#             */
-/*   Updated: 2025/11/17 14:06:25 by demane           ###   ########.fr       */
+/*   Updated: 2025/11/17 16:34:34 by demane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-unsigned long	get_args_from_type(va_list ap, char type)
+unsigned long long	get_args_from_type(va_list ap, char type)
 {
 	if (type == 'c')
-		return ((unsigned long)(char)va_arg(ap, int));
+		return ((unsigned long long)(char)va_arg(ap, int));
 	if (type == 's')
-		return ((unsigned long)va_arg(ap, char *));
+		return ((unsigned long long)va_arg(ap, char *));
 	if (type == 'p')
-		return ((unsigned long)va_arg(ap, void *));
+		return ((unsigned long long)va_arg(ap, void *));
 	if (type == 'd' || type == 'i')
-		return ((unsigned long)va_arg(ap, int));
+		return ((unsigned long long)va_arg(ap, int));
 	if (type == 'u')
-		return ((unsigned long)va_arg(ap, unsigned int));
+		return ((unsigned long long)va_arg(ap, unsigned int));
 	if (type == 'x' || type == 'X')
-		return ((unsigned long)va_arg(ap, unsigned int));
+		return ((unsigned long long)va_arg(ap, unsigned int));
 	return (0);
 }
 
 void	ft_printarg(t_format f, va_list ap, int *count)
 {
-	char			type;
-	unsigned long	arg;
+	char				type;
+	unsigned long long	arg;
 
 	type = f.type;
 	arg = get_args_from_type(ap, type);
+	if (!arg)
+		f.arg_is_null = 1;
 	if (type == 'c')
 		return ((*count) += ft_printchar(f, (char)arg), (void)0);
 	if (type == 's')

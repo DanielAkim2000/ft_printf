@@ -6,7 +6,7 @@
 /*   By: demane <emanedanielakim@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 11:14:51 by demane            #+#    #+#             */
-/*   Updated: 2025/11/17 13:41:36 by demane           ###   ########.fr       */
+/*   Updated: 2025/11/17 17:53:53 by demane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,32 @@
 int	ft_getzerocounthex(t_format f, int len_hex)
 {
 	int	nbr_zero;
+	int	total_len;
+	int	prefix_len;
 
 	nbr_zero = 0;
 	if (f.precision >= 0)
 	{
-		if (f.precision > len_hex)
+		if (f.precision >= len_hex)
 			nbr_zero = (f.precision - len_hex);
 		return (nbr_zero);
 	}
+	prefix_len = 0;
+	if (f.flag_hash && !f.arg_is_null)
+		prefix_len = 2;
+	total_len = prefix_len + len_hex;
 	if (f.flag_zero && !f.flag_minus)
 	{
-		if ((f.width > len_hex))
-			nbr_zero += (f.width - len_hex);
-		if (f.flag_hash)
-			nbr_zero -= 2;
+		if ((f.width > total_len))
+			nbr_zero += (f.width - total_len);
 	}
 	return (nbr_zero);
 }
 
 char	*ft_getsignhex(t_format f)
 {
+	if (f.arg_is_null)
+		return ("\0");
 	if (f.flag_hash)
 	{
 		if (f.type == 'X')
@@ -72,20 +78,20 @@ int	ft_printhex(t_format f, unsigned int nbr)
 	int		printed;
 	char	*sign;
 
-	hex_len = ft_hexlen((unsigned long)nbr);
-	if (nbr == 0 && f.precision == 0)
-		hex_len = 0;
 	sign = ft_getsignhex(f);
+	hex_len = ft_hexlen((unsigned long)nbr);
+	if (f.arg_is_null && f.precision == 0)
+		hex_len = 0;
 	zero_count = ft_getzerocounthex(f, hex_len);
 	space_count = ft_getspacecount(f, hex_len, zero_count, ft_strlen(sign));
 	printed = 0;
 	if (!f.flag_minus)
 		printed += ft_putnchar(' ', space_count);
-	if (sign && !(nbr == 0))
+	if (sign)
 		printed += ft_putnstr(sign, 2);
 	printed += ft_putnchar('0', zero_count);
 	if (!(nbr == 0 && f.precision == 0))
-		printed += ft_printnbrhex(f, (unsigned long)nbr);
+		printed += ft_printnbrhex(f, (unsigned long long)nbr);
 	if (f.flag_minus)
 		printed += ft_putnchar(' ', space_count);
 	return (printed);

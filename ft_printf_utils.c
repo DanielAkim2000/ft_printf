@@ -6,7 +6,7 @@
 /*   By: demane <emanedanielakim@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 10:56:27 by demane            #+#    #+#             */
-/*   Updated: 2025/11/17 13:58:05 by demane           ###   ########.fr       */
+/*   Updated: 2025/11/17 16:33:47 by demane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_format	ft_initformat(void)
 	new_format.width = 0;
 	new_format.type = '\0';
 	new_format.length = 0;
+	new_format.arg_is_null = 0;
 	return (new_format);
 }
 

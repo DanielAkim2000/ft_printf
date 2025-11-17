@@ -6,7 +6,7 @@
 /*   By: demane <emanedanielakim@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 13:59:13 by demane            #+#    #+#             */
-/*   Updated: 2025/11/17 13:59:42 by demane           ###   ########.fr       */
+/*   Updated: 2025/11/17 17:54:32 by demane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_printint(t_format f, int nbr)
 	int		printed;
 
 	len_abs = ft_intabslen(nbr);
-	if (nbr == 0 && f.precision == 0)
+	if (f.arg_is_null && f.precision == 0)
 		len_abs = 0;
 	sign = ft_getsign(nbr, f);
 	zero_count = ft_getzerocountint(nbr, f, len_abs);
